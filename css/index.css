@@ -1,3 +1,28 @@
+/* --- KEYFRAME ANIMATIONS --- */
+/* Animation for elements fading in from the top/left */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for the profile image pop-in */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* General Setup and Font */
 body {
     font-family: 'Poppins', sans-serif;
@@ -5,6 +30,8 @@ body {
     padding: 0;
     background-color: #f4f4f9; /* Light background */
     color: #333;
+    /* Hide all elements initially to apply entry animations */
+    visibility: visible;
 }
 
 .container {
@@ -13,13 +40,18 @@ body {
     padding: 20px;
 }
 
-/* Header and Navigation */
+/* ---------------------------------------------------- */
+/* HEADER AND NAVIGATION */
+/* ---------------------------------------------------- */
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
     border-bottom: 2px solid #ddd;
+    /* Entry Animation for Header */
+    animation: fadeInSlide 0.8s ease-out; 
 }
 
 .logo {
@@ -27,7 +59,7 @@ header {
     align-items: center;
     font-weight: 600;
     font-size: 1.2em;
-    color: #4CAF50; /* VLSI Green */
+    color: #4CAF50; 
 }
 
 .dot {
@@ -36,26 +68,39 @@ header {
     background-color: #4CAF50;
     border-radius: 50%;
     margin-right: 5px;
+    /* Pulsing animation for the logo dot */
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from { box-shadow: 0 0 0 0px rgba(76, 175, 80, 0.7); }
+    to { box-shadow: 0 0 0 8px rgba(76, 175, 80, 0); }
 }
 
 nav a {
     margin-left: 20px;
     text-decoration: none;
     color: #555;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.2s; /* Added transform */
 }
 
 nav a:hover {
     color: #4CAF50;
+    transform: translateY(-2px); /* Subtle lift on hover */
 }
 
-/* Hero Section */
+/* ---------------------------------------------------- */
+/* HERO SECTION */
+/* ---------------------------------------------------- */
+
 .hero {
     display: flex;
     align-items: center;
     padding: 50px 0;
     gap: 40px;
     text-align: left;
+    /* Delayed Entry Animation for Hero Section */
+    animation: fadeInSlide 0.8s ease-out 0.2s backwards; 
 }
 
 .profile-img {
@@ -65,12 +110,15 @@ nav a:hover {
     object-fit: cover;
     border: 5px solid #4CAF50;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Image Entry Animation */
+    animation: scaleIn 0.8s ease-out 0.4s backwards; 
 }
 
 .intro-text h1 {
     font-size: 2.5em;
     margin-top: 0;
     color: #222;
+    /* Optional: Use JavaScript for a typing effect here for the best result */
 }
 
 .intro-text p {
@@ -78,7 +126,7 @@ nav a:hover {
     margin-bottom: 30px;
 }
 
-/* Circle Buttons */
+/* Circle Buttons - Improved Hover Effect */
 .circle-buttons a {
     text-decoration: none;
     display: inline-block;
@@ -86,132 +134,141 @@ nav a:hover {
     margin-right: 15px;
     border-radius: 50px;
     font-weight: 600;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncier Transition */
     text-align: center;
 }
 
-.circle-btn.light {
-    background-color: #fff;
-    color: #4CAF50;
-    border: 2px solid #4CAF50;
-}
-
-.circle-btn.medium {
+/* Specific button hover styles for better contrast */
+.circle-btn.light:hover {
     background-color: #4CAF50;
     color: white;
+    transform: translateY(-5px); /* Stronger lift */
 }
 
-.circle-btn.dark {
-    background-color: #333;
-    color: white;
+.circle-btn.medium:hover {
+    background-color: #388E3C; /* Slightly darker green */
+    transform: translateY(-5px) scale(1.05); /* Grow and lift */
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
 }
 
-.circle-buttons a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+.circle-btn.dark:hover {
+    background-color: #000;
+    transform: translateY(-5px);
 }
 
-/* Carousel/Sections Grid */
+/* ---------------------------------------------------- */
+/* CAROUSEL/SECTIONS GRID - Animation from previous help */
+/* ---------------------------------------------------- */
+
 .scroll-container {
     position: relative;
     overflow: hidden;
     padding: 40px 0;
+    /* Delayed Entry Animation for the whole carousel */
+    animation: fadeInSlide 0.8s ease-out 0.6s backwards; 
 }
 
 .sections {
     display: flex;
-    transition: transform 0.5s ease-in-out;
-    padding: 20px 0;
+    /* The transition is now controlled by JS using the .is-animated class */
+    /* Add this CSS rule based on the JS update: */
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+
+/* Add the data attribute logic for JS to control the offset */
+.sections[data-scroll-offset] {
+    transform: translateX(var(--scroll-offset)); 
 }
 
 .section-card {
-    flex: 0 0 200px; /* Fixed width for each card */
+    flex: 0 0 200px;
     margin-right: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s;
-    opacity: 0.5; /* Initial opacity for non-active cards */
+    transition: all 0.3s ease; /* Smooth transition for opacity/transform */
+    opacity: 0.4; /* Initial opacity for non-active cards */
+}
+
+/* Active and Inactive card styles (used by js/main.js) */
+.section-card.inactive-card {
+    opacity: 0.4;
+    transform: scale(0.98); 
 }
 
 .section-card.active {
     opacity: 1;
+    transform: scale(1.05); /* Slightly bigger focus card */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on focus */
 }
+
+.section-card.active:hover {
+    transform: translateY(-5px) scale(1.07); /* Extra lift on hover */
+    cursor: pointer;
+}
+
 
 .section-card a {
-    display: block;
-    padding: 40px 20px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-    font-size: 1.1em;
-    text-align: center;
+    /* ... existing styles ... */
+    position: relative;
+    z-index: 2;
 }
 
-/* Carousel Arrows */
+/* Carousel Arrows - Enhanced Hover */
 .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #333;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-    font-size: 1.5em;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* ... existing styles ... */
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-.arrow.left { left: 0; }
-.arrow.right { right: 0; }
-
-/* Content Section (for inner pages) */
-.content-section {
-    padding: 40px 20px;
-    text-align: left;
-}
-.content-section h1 {
-    color: #4CAF50;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-}
-.content-section h2 {
-    color: #555;
-    margin-top: 40px;
-}
-.content-section ul {
-    list-style: square;
-    margin-left: 20px;
-    line-height: 1.8;
+.arrow:hover {
+    background: #4CAF50; /* Green hover for arrow */
+    transform: translateY(-50%) scale(1.1); /* Slight grow on hover */
 }
 
-/* Footer */
+/* ---------------------------------------------------- */
+/* FOOTER - Subtle Fade-in */
+/* ---------------------------------------------------- */
+
 .main-footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 30px 0;
-    margin-top: 40px;
-    border-top: 2px solid #ddd;
-    color: #555;
-    text-align: left;
-}
-
-.footer-section h4 {
-    color: #222;
-    margin-bottom: 15px;
+    /* ... existing styles ... */
+    animation: fadeInSlide 0.8s ease-out 0.8s backwards; /* Late entry animation */
 }
 
 .footer-section a {
-    display: block;
-    color: #555;
-    text-decoration: none;
-    margin-bottom: 5px;
+    /* ... existing styles ... */
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.footer-section a:hover {
+    color: #4CAF50;
+    border-bottom: 1px solid #4CAF50; /* Subtle underline effect */
+}
+
+
+/* ---------------------------------------------------- */
+/* RESPONSIVENESS (Optional but Recommended) */
+/* ---------------------------------------------------- */
+
+@media (max-width: 800px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-img {
+        margin-bottom: 20px;
+    }
+
+    .intro-text h1 {
+        font-size: 2em;
+    }
+
+    .main-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-section {
+        margin-bottom: 20px;
+    }
 }

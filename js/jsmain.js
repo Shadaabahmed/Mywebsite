@@ -1,4 +1,5 @@
 // This script controls the horizontal scrolling/carousel effect on the homepage.
+// It now uses CSS Custom Properties (--scroll-offset) and classes for animation.
 
 const sections = document.querySelector(".sections");
 const cards = document.querySelectorAll(".section-card");
@@ -16,42 +17,44 @@ if (sections && cards.length > 0 && nextBtn && prevBtn) {
     window.addEventListener("load", () => {
         if (cards[0]) {
             // Card width (200px) + margin-right (20px) = 220px in our CSS.
-            // Using offsetWidth is the dynamic, better way to calculate this.
             cardWidth = cards[0].offsetWidth + 20; 
             updateFocus();
         }
     });
 
     function updateFocus() {
-      cards.forEach((card, index) => {
-        card.classList.remove("active");
-        card.style.opacity = "0.5";
+        // Sets the CSS Custom Property for Transform. 
+        // This is read by the .sections[data-scroll-offset] CSS rule for smooth movement.
+        sections.style.setProperty("--scroll-offset", `-${activeIndex * cardWidth}px`);
         
-        // Determine which cards should be visible/active
-        if (index >= activeIndex && index < activeIndex + visibleCards) {
-          card.classList.add("active");
-          card.style.opacity = "1";
-        }
-      });
-      // Apply the scroll animation (translateX)
-      sections.style.transform = `translateX(-${activeIndex * cardWidth}px)`;
+        cards.forEach((card, index) => {
+            card.classList.remove("active");
+            card.classList.remove("inactive-card"); // Clean up existing classes
+            
+            // Determine which cards should be visible/active
+            if (index >= activeIndex && index < activeIndex + visibleCards) {
+                card.classList.add("active"); // CSS handles opacity: 1 and scale
+            } else {
+                card.classList.add("inactive-card"); // CSS handles opacity: 0.4 and scale
+            }
+        });
     }
 
     // Next button logic
     nextBtn.addEventListener("click", () => {
-      activeIndex++;
-      if (activeIndex > cards.length - visibleCards) {
-        activeIndex = 0; // loop back to first
-      }
-      updateFocus();
+        activeIndex++;
+        if (activeIndex > cards.length - visibleCards) {
+            activeIndex = 0; // loop back to first
+        }
+        updateFocus();
     });
 
     // Previous button logic
     prevBtn.addEventListener("click", () => {
-      activeIndex--;
-      if (activeIndex < 0) {
-        activeIndex = cards.length - visibleCards; // loop to last set
-      }
-      updateFocus();
+        activeIndex--;
+        if (activeIndex < 0) {
+            activeIndex = cards.length - visibleCards; // loop to last set
+        }
+        updateFocus();
     });
 }

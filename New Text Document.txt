@@ -1,0 +1,328 @@
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.logo .dot {
+  width: 10px;
+  height: 10px;
+  background: #ffbfa3;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Glowing wrapper */
+.profile-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.profile-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,191,163,0.3), transparent 70%);
+  z-index: -1;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+/* Profile Image */
+.profile-img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid #ffe1d6;
+  box-shadow: 0 15px 45px rgba(231, 111, 81, 0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.profile-img:hover {
+  transform: scale(1.07);
+  box-shadow: 0 20px 55px rgba(231, 111, 81, 0.5);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+/* Glowing Animation */
+@keyframes glowPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Intro Text */
+.intro-text h1 {
+  font-size: 2rem;
+  color: #3e2c28;
+  margin-bottom: 15px;
+}
+
+.intro-text p {
+  color: #5e4b47;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+/* Circle Buttons */
+.circle-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.circle-btn {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #ffbfa3;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.circle-btn.light {
+  background: #ffe1d6;
+  color: #333;
+}
+
+.circle-btn.medium {
+  background: #f4a261;
+}
+
+.circle-btn.dark {
+  background: #e76f51;
+}
+
+.circle-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Sections Grid */
+ .scroll-container {
+      position: relative;
+      width: 90%;
+      margin: auto;
+      overflow: hidden;
+      margin-bottom: 60px;
+    }
+
+    .sections {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .section-card {
+      background: #fff;
+      border: 1px solid #f7c6b5;
+      border-radius: 12px;
+      padding: 40px 10px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #81493a;
+      cursor: pointer;
+      min-width: 23%;  /* 4 cards per view */
+      margin: 0 1%;
+      opacity: 0.5; /* default dimmed */
+      transition: opacity 0.3s ease, transform 0.5s ease;
+    }
+
+    .section-card.active {
+      opacity: 1;
+    }
+
+    .section-card a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+    }
+
+    .section-card a:hover {
+      color: #e76f51;
+      text-decoration: underline;
+    }
+
+    .section-card:hover {
+      background: #ffbfa3;
+      color: white;
+    }
+
+    /* Arrows */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #e76f51;
+      color: white;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 50%;
+      z-index: 20;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .arrow:hover {
+      background: #ff9770;
+     
+    }
+
+    .arrow.left {
+      left: 10px; /* keep inside */
+    }
+
+    .arrow.right {
+      right: 10px; /* keep inside */
+    }
+
+/* Footer */
+.main-footer {
+  background-color: #fff1ea;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 40px 10%;
+  border-top: 2px solid #ffd8c2;
+  font-size: 0.9rem;
+  color: #5e4b47;
+}
+
+.footer-section {
+  margin-bottom: 20px;
+  min-width: 200px;
+}
+
+.footer-section h4 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #d2601a;
+}
+
+.footer-section a {
+  text-decoration: none;
+  color: #5e4b47;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+  color: #e76f51;
+}
+/* Responsive Fix for Scroll Section */
+@media (max-width: 1024px) {
+  .scroll-container {
+    width: 95%;
+    padding: 0 40px; /* space for arrows so they don't overlap cards */
+    margin-bottom: 70px; /* extra gap below section */
+  }
+
+  .section-card {
+    min-width: 30%;
+    font-size: 1rem;
+    padding: 28px 12px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-container {
+    width: 100%;
+    padding: 0 30px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 70px;
+  }
+
+  .sections {
+    flex-wrap: nowrap;
+  }
+
+  .section-card {
+    min-width: 45%;
+    margin: 0 2%;
+    font-size: 0.95rem;
+    padding: 24px 10px;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+    padding: 10px;
+    top: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-container {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 60px;
+  }
+
+  .sections {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-card {
+    min-width: 85%;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    padding: 20px 12px;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
